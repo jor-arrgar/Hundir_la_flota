@@ -3,8 +3,8 @@ import pandas as pd
 class tablero_defensa_jugador():
     '''
     Genera un tablero vacio de 10x10 casillas a través de numpy. Inicialmente todas las posiciones se corresponden con agua. \n
-    El objeto tablero_defensa presenta 3 atributos: coordenadas longitudinales (horizontal, letras A hasta J), coordenadas latitudinales (verticales, de 0 a 9), la matriz que actua como cuadrícula y las vidas que tiene cada flota antes de ser aniquilada.
-    Los métodos incluidos en este objeto sirven para colocar los diferentes barcos, que incluyen:\n
+    El objeto tablero_defensa presenta 4 atributos: coordenadas longitudinales (horizontal, letras A hasta J), coordenadas latitudinales (verticales, de 0 a 9), el DataFrame que actua como cuadrícula y las vidas que tiene la flota antes de ser aniquilada.
+    Los métodos incluidos en este objeto sirven para colocar los diferentes barcos a través de una función 'input', que incluyen:\n
     > 4 fragatas de 1 casilla cada una.\n> 3 destructores de 2 posiciones.\n> 2 acorazados de 3 posiciones en el mapa. \n> 1 portaaviones de 4 casillas.\n
     '''
     coord_long = ['A','B','C','D','E','F','G','H','I','J']
