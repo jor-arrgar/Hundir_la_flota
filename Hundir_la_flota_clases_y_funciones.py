@@ -1,4 +1,4 @@
-from os import X_OK
+
 import pandas as pd
 import numpy as np
 import random
@@ -8,6 +8,9 @@ class tablero_ataque():
     longitud = ['A','B','C','D','E','F','G','H','I','J']
     latitud = [0 ,1 ,2, 3, 4, 5, 6, 7 , 8 , 9]
     coordenada_ataque = []
+    coordenada_central_ataque_orbital = []
+
+
 
     #Generacion de mapas de ataque y defensa de jugador y máquina
     mapa_ataque_j = pd.DataFrame(np.full((10,10), '.'), index=longitud, columns=latitud)
@@ -18,8 +21,12 @@ class tablero_ataque():
     #Contadores
     vida_jugador = 20
     vida_maquina = 20
-    contador_ataques_aereos_maquina = 0
-    contador_ataques_aereos_jugador = 0
+    contador_ataques_aereos_maquina = 2
+    contador_ataques_aereos_jugador = 2
+
+
+    
+
 
     def colocar_barco_j(self):
         print('\nMapa jugador \n', self.mapa_defensa_j)
@@ -55,16 +62,24 @@ class tablero_ataque():
                             if letras_contiguas and (portaviones[1] == portaviones[3] == portaviones[5] == portaviones[7]):
                                 #Colocar varco en la horizontal
                                 self.mapa_defensa_j.loc[portaviones[0],int(portaviones[1])] = 'P'
+                              
                                 self.mapa_defensa_j.loc[portaviones[2],int(portaviones[3])] = 'P'
+                         
                                 self.mapa_defensa_j.loc[portaviones[4],int(portaviones[5])] = 'P'
+                        
                                 self.mapa_defensa_j.loc[portaviones[6],int(portaviones[7])] = 'P'
+                          
                                 break
                             elif numeros_contiguos and (portaviones[0] == portaviones[2] == portaviones[4] == portaviones[6]):
                                 #Colocar barco en la vertical
                                 self.mapa_defensa_j.loc[portaviones[0],int(portaviones[1])] = 'P'
+                            
                                 self.mapa_defensa_j.loc[portaviones[2],int(portaviones[3])] = 'P'
+                       
                                 self.mapa_defensa_j.loc[portaviones[4],int(portaviones[5])] = 'P'
+                               
                                 self.mapa_defensa_j.loc[portaviones[6],int(portaviones[7])] = 'P'
+                              
                                 break
                             else:
                                 print('Las posiciones deben ser contiguas en la horizontal o vertical.')
@@ -107,14 +122,20 @@ class tablero_ataque():
                                 if letras_contiguas and (acorazado_i[1] == acorazado_i[3] == acorazado_i[5]):
                                     #Colocación del barco en horizontal
                                     self.mapa_defensa_j.loc[acorazado_i[0],int(acorazado_i[1])] = 'A'
+                                  
                                     self.mapa_defensa_j.loc[acorazado_i[2],int(acorazado_i[3])] = 'A'
+                                  
                                     self.mapa_defensa_j.loc[acorazado_i[4],int(acorazado_i[5])] = 'A'
+                                    
                                     break
                                 elif numeros_contiguos and (acorazado_i[0] == acorazado_i[2] == acorazado_i[4]):
                                     #Colocación del barco en vertical
                                     self.mapa_defensa_j.loc[acorazado_i[0],int(acorazado_i[1])] = 'A'
+                                   
                                     self.mapa_defensa_j.loc[acorazado_i[2],int(acorazado_i[3])] = 'A'
+                                    
                                     self.mapa_defensa_j.loc[acorazado_i[4],int(acorazado_i[5])] = 'A'
+                                    
                                     break
                                 else:
                                     print('Las posiciones deben ser contiguas en la horizontal o vertical.')
@@ -151,7 +172,9 @@ class tablero_ataque():
                                 #Las siguientes comprobaciones incluyen que no se permitan posiciones en diagonal.
                                 if (letra_contigua or numero_contiguo) and not(letra_contigua and numero_contiguo):
                                     self.mapa_defensa_j.loc[destructor_i[0],int(destructor_i[1])] = 'D'
+                                    
                                     self.mapa_defensa_j.loc[destructor_i[2],int(destructor_i[3])] = 'D'
+                                  
                                     break
                                 else:
                                     print('Las posiciones deben ser contiguas en la horizontal o vertical.')
@@ -184,6 +207,7 @@ class tablero_ataque():
 
                                 #Colocación del barco
                                 self.mapa_defensa_j.loc[fragata_i[0],int(fragata_i[1])]='F'
+                              
                                 break
                             else:
                                 print('Ya hay un barco en la posición asignada')
@@ -215,22 +239,30 @@ class tablero_ataque():
                             for i in range(columna, columna + barco_len):
                                 if barco_len == 1:
                                     self.mapa_defensa_j[fila][i] = 'F'
+                                    
                                 elif barco_len == 2:
                                     self.mapa_defensa_j[fila][i] = 'D'
+                                   
                                 elif barco_len == 3:
                                     self.mapa_defensa_j[fila][i] = 'A'
+                                   
                                 elif barco_len == 4:
                                     self.mapa_defensa_j[fila][i] = 'P'
+                                
                         else:
                             for i in range(fila, fila + barco_len):
                                 if barco_len == 1:
                                     self.mapa_defensa_j[i][columna] = 'F'
+                                   
                                 elif barco_len == 2:
                                     self.mapa_defensa_j[i][columna] = 'D'
+                                 
                                 elif barco_len == 3:
                                     self.mapa_defensa_j[i][columna] = 'A'
+                                   
                                 elif barco_len == 4:
                                     self.mapa_defensa_j[i][columna] = 'P'
+                                  
                         break
 
     def colocar_barco_m(self):
@@ -254,22 +286,30 @@ class tablero_ataque():
                             for i in range(columna, columna + barco_len):
                                 if barco_len == 1:
                                     self.mapa_defensa_m[fila][i] = 'F'
+                                    
                                 elif barco_len == 2:
                                     self.mapa_defensa_m[fila][i] = 'D'
+                                  
                                 elif barco_len == 3:
                                     self.mapa_defensa_m[fila][i] = 'A'
+                                
                                 elif barco_len == 4:
                                     self.mapa_defensa_m[fila][i] = 'P'
+                                 
                         else:
                             for i in range(fila, fila + barco_len):
                                 if barco_len == 1:
                                     self.mapa_defensa_m[i][columna] = 'F'
+                                  
                                 elif barco_len == 2:
                                     self.mapa_defensa_m[i][columna] = 'D'
+                                 
                                 elif barco_len == 3:
                                     self.mapa_defensa_m[i][columna] = 'A'
+                                    
                                 elif barco_len == 4:
                                     self.mapa_defensa_m[i][columna] = 'P'
+                               
                         break
        
     def barco_cabe(self, barco_len, fila, columna, direccion):
@@ -291,16 +331,16 @@ class tablero_ataque():
         #VARIABLES DE ENTRADA: TABLERO QUE QUEREMOS USAR, FILA SELECCIONADA, COLUMNA, DIRECCION Y LONGITUD DEL BARCO
         if direccion == 'horizontal':
             for i in range(columna, columna + barco_len):
-                if self.mapa_defensa_m[fila][i] == 'F' or self.mapa_defensa_m[fila][i] == 'D' or self.mapa_defensa_m[fila][i] == 'A' or self.mapa_defensa_m[fila][i] == 'P':
+                if (self.mapa_defensa_m[fila][i] == 'F') or (self.mapa_defensa_m[fila][i] == 'D') or (self.mapa_defensa_m[fila][i] == 'A') or (self.mapa_defensa_m[fila][i] == 'P'):
                     return True
         else:
             for i in range(fila, fila + barco_len):
-                if self.mapa_defensa_m[i][columna] == 'F' or self.mapa_defensa_m[i][columna] == 'D' or self.mapa_defensa_m[i][columna] == 'A' or self.mapa_defensa_m[i][columna] == 'P':
+                if (self.mapa_defensa_m[i][columna] == 'F') or (self.mapa_defensa_m[i][columna] == 'D') or (self.mapa_defensa_m[i][columna] == 'A') or (self.mapa_defensa_m[i][columna] == 'P'):
                     return True
         return False
            
     def ataque_jugador(self):
-        print('Empieza el juego')
+        print("Turno del jugador.")
         # while para que el disparo caiga en el tablero,pide coordenadas hasta que introduzca una válida
         while True:
             x = input('Dispara a fila: ').upper()
@@ -322,15 +362,62 @@ class tablero_ataque():
         self.coordenada_ataque.append(y)
     
     def ataque_maquina(self):
-        print('Turno de la máquina')
+        print('Turno de la máquina in')
         # while para que el disparo caiga en el tablero,pide coordenadas hasta que introduzca una válida
-        long = self.longitud
-        lat = self.latitud
-        x = random.choice(long)
-        y = random.choice(lat)
-        self.coordenada_ataque.append(x)
-        self.coordenada_ataque.append(y)
+        #longitud_shuffle = ['A','B','C','D','E','F','G','H','I','J']
+        #latitud_shuffle = [0 ,1 ,2, 3, 4, 5, 6, 7 , 8 , 9]
+        #random.shuffle(longitud_shuffle)       
+        #random.shuffle(latitud_shuffle)
+        barcos_tocados = []
+        pensar = random.choice([0 , 1 , 2])
+        if pensar <= 1: 
+            for i in self.longitud:
+                for j in self.latitud:
+                    if self.mapa_ataque_m.loc[i , j] == 'X':
+                        barcos_tocados.append([i , j])
+                    else:
+                        pass
+            print('tocados: ' , barcos_tocados)
+            if len(barcos_tocados) > 0:          
+                
+                while True:
+                    direccion = random.choice(['derecha' , 'izquierda' , 'arriba' , 'abajo'])
+                    barco_tocado = random.choice(barcos_tocados)
+                    self.coordenada_ataque = []
+                    print(barco_tocado)
+                    if (direccion == 'abajo') and (self.longitud.index(barco_tocado[0]) + 1 <= 9):
+                        self.coordenada_ataque.append(self.longitud[self.longitud.index(barco_tocado[0]) + 1])
+                        self.coordenada_ataque.append(barco_tocado[1])
+                        break
+                    elif  (direccion == 'arriba') and (0 <= self.longitud.index(barco_tocado[0]) - 1):
+                        self.coordenada_ataque.append(self.longitud[self.longitud.index(barco_tocado[0]) - 1])
+                        self.coordenada_ataque.append(barco_tocado[1])
+                        break
+                    elif (direccion == 'derecha') and (barco_tocado[1] + 1 <= 9):
+                        self.coordenada_ataque.append(barco_tocado[0])
+                        self.coordenada_ataque.append(barco_tocado[1] + 1)
+                        break
+                    elif (direccion == 'izquierda') and (0 <= barco_tocado[1] -1):
+                        self.coordenada_ataque.append(barco_tocado[0])
+                        self.coordenada_ataque.append(barco_tocado[1] - 1)
+                        break
+                    else:
+                        pass
+                print("intelignecia: " , self.coordenada_ataque)
+            else:
+                x = random.choice(self.longitud)
+                y = random.choice(self.latitud)
+                self.coordenada_ataque.append(x)
+                self.coordenada_ataque.append(y)
+                print("inteligencia sin datos: " , self.coordenada_ataque)
     
+        else:
+            x = random.choice(self.longitud)
+            y = random.choice(self.latitud)
+            self.coordenada_ataque.append(x)
+            self.coordenada_ataque.append(y)
+            print("aleatorio: " , self.coordenada_ataque)
+   
     def comprobar_ataque_j(self):
         if self.mapa_ataque_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == '~' or self.mapa_ataque_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == 'X':
             print('Ya has disparado a esa casilla')
@@ -345,21 +432,27 @@ class tablero_ataque():
             self.mapa_ataque_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = 'X'
             self.mapa_defensa_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = 'X'
             
+            
         print('Tablero jugador','\n',self.mapa_ataque_j,'\n')
        
     def comprobar_ataque_m(self):
-        if self.mapa_ataque_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == '~' or self.mapa_ataque_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == 'X':
-            pass
-        elif self.mapa_defensa_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == '.':
-            print("La máquina ha atacado a la coordenada " , self.coordenada_ataque[0] , self.coordenada_ataque[1])
-            print('Agua')
-            self.mapa_ataque_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = '~'
-            self.mapa_defensa_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = 'X'
-        else:
-            print("La máquina ha atacado a la coordenada " , self.coordenada_ataque[0] , self.coordenada_ataque[1])
-            print('Tocado')
-            self.mapa_ataque_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = 'X'
-            self.mapa_defensa_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = 'X'
+        while True:
+            if self.mapa_ataque_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == '~' or self.mapa_ataque_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == 'X':
+                self.ataque_maquina()
+            elif self.mapa_defensa_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == '.':
+                print("La máquina ha atacado a la coordenada " , self.coordenada_ataque[0] , self.coordenada_ataque[1])
+                print('Agua')
+                self.mapa_ataque_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = '~'
+                self.mapa_defensa_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = 'X'
+                break
+            else:
+                print("La máquina ha atacado a la coordenada " , self.coordenada_ataque[0] , self.coordenada_ataque[1])
+                print('Tocado')
+                self.mapa_ataque_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = 'X'
+                self.mapa_defensa_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = 'X'
+                
+                break
+            
             
         print('Tablero máquina','\n',self.mapa_ataque_m,'\n')
 
@@ -373,19 +466,23 @@ class tablero_ataque():
                 if (self.mapa_defensa_j.loc[casilla_horizontal, ataque_aereo_vertical] != '.') and (self.mapa_defensa_j.loc[casilla_horizontal, ataque_aereo_vertical]) != 'X':
                     self.mapa_defensa_j.loc[casilla_horizontal, ataque_aereo_vertical] = 'X'
                     self.mapa_ataque_m.loc[casilla_horizontal , ataque_aereo_vertical] = 'X'
+                    self.vida_jugador -= 1
                     print('Tocado en coordenadas ' , casilla_horizontal , ataque_aereo_vertical)
+                    
                 elif self.mapa_defensa_j.loc[casilla_horizontal, ataque_aereo_vertical] == 'X':
                     pass
                 else:
                     self.mapa_defensa_j.loc[casilla_horizontal, ataque_aereo_vertical] = 'X'
                     self.mapa_ataque_m.loc[casilla_horizontal , ataque_aereo_vertical] = '~'
                     print("Agua en coordenadas " , casilla_horizontal , ataque_aereo_vertical)
+     
         else:
             ataque_aereo_horizontal = random.choice(self.longitud)
             for casilla_vertical in self.latitud:
                 if (self.mapa_defensa_j.loc[ataque_aereo_horizontal , casilla_vertical] != '.') and (self.mapa_defensa_j.loc[ataque_aereo_horizontal , casilla_vertical] != 'X'):
                     self.mapa_defensa_j.loc[ataque_aereo_horizontal , casilla_vertical] = 'X'
                     self.mapa_ataque_m.loc[ataque_aereo_horizontal , casilla_vertical] = 'X'
+                    self.vida_jugador -= 1
                     print ("Tocado en coordenadas " , ataque_aereo_horizontal , casilla_vertical)
                 elif self.mapa_defensa_j.loc[ataque_aereo_horizontal , casilla_vertical] == 'X':
                     pass
@@ -405,7 +502,11 @@ class tablero_ataque():
                         if (self.mapa_defensa_m.loc[casilla_horizontal, ataque_aereo_vertical] != '.') and (self.mapa_defensa_j.loc[casilla_horizontal, ataque_aereo_vertical]) != 'X':
                             self.mapa_defensa_m.loc[casilla_horizontal, ataque_aereo_vertical] = 'X'
                             self.mapa_ataque_j.loc[casilla_horizontal , ataque_aereo_vertical] = 'X'
+                            self.vida_maquina -= 1
+                            
+                                        
                             print('Tocado en coordenadas ' , casilla_horizontal , ataque_aereo_vertical)
+                            
                         elif self.mapa_defensa_m.loc[casilla_horizontal, ataque_aereo_vertical] == 'X':
                             pass
                         else:
@@ -436,7 +537,30 @@ class tablero_ataque():
                 else:
                     print("Valor de coordenada horizontal no válida.")
 
- 
+    def ataque_orbital(self):
+        #solo lo puede ejecutar la máquina
+        coord = [1, 2 , 3 , 4 , 5, 6, 7, 8]
+        x = random.choice(coord)
+        y = random.choice(coord)
+        self.coordenada_central_ataque_orbital.append(x)
+        self.coordenada_central_ataque_orbital.append(y)
+        for perimetro in [(-1 , -1) , (-1, 0) , (-1 , 1) , (0, -1) , (0 , 0) , (0 , 1) , (1 , -1) , (1 , 0) , (1 , 1)]:
+            coordenada_ataque_orbital = self.coordenada_central_ataque_orbital[0] + perimetro[0]  , self.coordenada_central_ataque_orbital[1] + perimetro[1]
+            if self.mapa_defensa_j.iloc[coordenada_ataque_orbital] == '.':
+                print("Agua en coordenadas " , coordenada_ataque_orbital)
+                self.mapa_defensa_j.iloc[coordenada_ataque_orbital] = 'X'
+                self.mapa_ataque_m.iloc[coordenada_ataque_orbital] = '~'
+            elif self.mapa_defensa_j.iloc[coordenada_ataque_orbital] == 'X':
+                pass
+            else:
+                print("Tocado en coordenadas " , coordenada_ataque_orbital)
+                self.mapa_defensa_j.iloc[coordenada_ataque_orbital] = 'X'
+                self.mapa_ataque_m.iloc[coordenada_ataque_orbital] = 'X'
+                self.vida_jugador -= 1
+                
+
+
+
 
 
                 
@@ -448,10 +572,9 @@ jugador = tablero_ataque()
 maquina = tablero_ataque()
 maquina.colocar_barco_m()
 #Hay que generar una pregunta inicial para elegir si se colocan los barcos manualmente o que los genere la máquina.
-jugador.colocar_barco_j_aleatorio()     
+jugador.colocar_barco_j()     
 
-print('\nMapa máquina \n', maquina.mapa_defensa_m)
-print('\nMapa jugador \n' , jugador.mapa_defensa_j)
+
 
 #Definicion de funciones de juego
 
@@ -471,12 +594,13 @@ def disparo_jugador():
     print('Turno de la máquina')
 
 def disparo_maquina():
+    print("Turno de la maquina out")
     while True:
         maquina.coordenada_ataque = []
         maquina.ataque_maquina()
-        print(maquina.coordenada_ataque)
+        print(maquina.mapa_defensa_j.loc[maquina.coordenada_ataque[0],maquina.coordenada_ataque[1]])
         maquina.comprobar_ataque_m()
-        print(maquina.coordenada_ataque)
+        print("-----------------------")
         print(maquina.mapa_ataque_m.loc[maquina.coordenada_ataque[0],maquina.coordenada_ataque[1]])
         if maquina.mapa_ataque_m.loc[maquina.coordenada_ataque[0],maquina.coordenada_ataque[1]] == '~':
             break
@@ -487,7 +611,7 @@ def disparo_maquina():
 
 def ataque_aereo_maquina():
     if maquina.contador_ataques_aereos_maquina > 0:
-        ejecucion = random.choice([0])
+        ejecucion = random.choice([0 , 1 , 2 , 3])
         if ejecucion == 0:
             print("La máquina va a ejecutar un ataque aéreo")
             maquina.ataque_aereo_m()
@@ -511,9 +635,34 @@ def ataque_aereo_jugador():
         print('Al jugador no le quedan ataques aereos')
 
 def ataque_orbital():
-    print("La flota enemiga va a lanzar un ataque orbital, ¡PREPARATE PARA EL IMPACTO!")
-    while True:
-        maquina.coordenada_ataque = []
+    print("La flota enemiga está preparando un ataque satelital.")
+    maquina.coordenadas_ataque_orbital = []
+    ejecucion = random.choice(list(range(0,6)))
+    if ejecucion > 3:
+        maquina.ataque_orbital()
+        print("La flota enemiga va a lanzar un ataque orbital sobre las coordenadas %s, ¡PREPARATE PARA EL IMPACTO!" % maquina.coordenadas_ataque_orbital)
+    elif ejecucion == 3:
+        defensa = random.choice(list(range(0,5)))
+        while True:
+            oportunidad = input("Elije un numero entre 0 y 5 (incluidos): ")
+            try:
+                oportunidad = int(oportunidad)
+                if oportunidad in list(range(0,5)):
+                    if oportunidad == defensa:
+                        print("Tu división de guerra electronica ha detenido el ataque orbital.")
+                        break
+                    else:
+                        maquina.ataque_orbital()
+                        print("La flota enemiga va a lanzar un ataque orbital sobre las coordenadas %s, ¡PREPARATE PARA EL IMPACTO!" % maquina.coordenadas_ataque_orbital)
+                        break
+                else:
+                    print("Valor introducido fuera de rango")
+            except:
+                print("Carácter introducido no válido, solo se permiten caracteres numéricos.")
+    else:
+        print("La flota enemiga no ha conseguido lanzar el ataque orbital.")
+
+
 
 
 
@@ -521,15 +670,21 @@ def ataque_orbital():
 
 # juego
 
-# Juego simple (nivel 1) // Maquina 100% aleatoria y flotas sin ataques especiales.
+# Juego simple (nivel 1 / primera guerra mundial) //  flotas sin ataques especiales.
 while (jugador.vida_jugador > 0) or (maquina.vida_maquina > 0):
     #turno del jugador (primero compueba si ataque_aereo y luego procede con su ataque normal)
     #ataque_aereo_jugador()
     disparo_jugador()
     print("Vidas máquina: " , maquina.vida_maquina)
     #turno de la maquina (primero compueba si ataque_aereo y luego procede con su ataque normal)
-    #ataque_aereo_maquina()
+    ataque_aereo_maquina()
+    #ataque_orbital()
     disparo_maquina()
     print("Vidas jugador: " , jugador.vida_jugador)
+    
 
+#Nivel 2 / Segunda guerra mundial // Incluye ataques aereos
+
+
+#Nivel 3 / Tercera guerra mundial // Incluye ataques aereos y orbitales
 
