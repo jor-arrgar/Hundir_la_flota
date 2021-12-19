@@ -1,11 +1,13 @@
-
+# Librerías utilizadas para el desarrollo del juego
 import pandas as pd
 import numpy as np
 import random
-class tablero_ataque():
+
+# Clase tablero ataque. Tablero bidimensional de 10x10, donde jugador y máquina anotan los disparos realizados.
+class tablero_ataque(): 
     barcos_esloras = [1,1,1,1,2,2,2,3,3,4]  #lista con los barcos y sus esloras para recorrerla con un for y colocarlos en el tablero
-    #Parámetros cardinales
-    longitud = ['A','B','C','D','E','F','G','H','I','J']
+    #Parámetros cardinales.
+    longitud = ['A','B','C','D','E','F','G','H','I','J'] 
     latitud = [0 ,1 ,2, 3, 4, 5, 6, 7 , 8 , 9]
     coordenada_ataque = []
     coordenada_central_ataque_orbital = []
@@ -27,7 +29,7 @@ class tablero_ataque():
 
     
 
-
+    #Método para colocar los barcos del jugador de manera manual.
     def colocar_barco_j(self):
         print('\nMapa jugador \n', self.mapa_defensa_j)
 
@@ -93,7 +95,7 @@ class tablero_ataque():
                 print("Se deben introducir cuatro posiciones en el plano.")
         print(self.mapa_defensa_j)
 
-        #Bucle para posicione de los acorazados:
+        #Bucle para posicion de los acorazados:
         for i in range(1,3):
             while True:
                 acorazado_i = (input("Acorazado " + str(i) + " de 2 (A-J,0-9,A-J,0-9,A-J,0-9): ").upper())
@@ -219,6 +221,7 @@ class tablero_ataque():
                     print("Introducir solo una coordenada del plano.")
             print(self.mapa_defensa_j)
 
+    #Método para colocar barcos del jugador de manera aleatoria. 
     def colocar_barco_j_aleatorio(self):
         #BUCLE A TRAVES DE LAS ESLORAS D
         for barco_len in tablero_ataque.barcos_esloras:
@@ -361,6 +364,7 @@ class tablero_ataque():
         self.coordenada_ataque.append(x)
         self.coordenada_ataque.append(y)
     
+    #Método para que la máquina ataque una coordenada, lo hace de manera aleatoria.
     def ataque_maquina(self):
         print('Turno de la máquina in')
         # while para que el disparo caiga en el tablero,pide coordenadas hasta que introduzca una válida
@@ -369,6 +373,8 @@ class tablero_ataque():
         #random.shuffle(longitud_shuffle)       
         #random.shuffle(latitud_shuffle)
         barcos_tocados = []
+
+        #PENSAR, en caso que la máquina acierte en un barco, blucle para que la máquina siga atacando esa posición, buscando posiciones contiguas para hundir el barco.
         pensar = random.choice([0 , 1 , 2])
         if pensar <= 1: 
             for i in self.longitud:
@@ -417,10 +423,12 @@ class tablero_ataque():
             self.coordenada_ataque.append(x)
             self.coordenada_ataque.append(y)
             print("aleatorio: " , self.coordenada_ataque)
-   
+    # Comprobación de dónde cae el disparo del jugador. Comprueba el disparo en el mapa de defensa y muestra el disparo en el mapa de ataque.
     def comprobar_ataque_j(self):
+        
         if self.mapa_ataque_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == '~' or self.mapa_ataque_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == 'X':
             print('Ya has disparado a esa casilla')
+         
         elif self.mapa_defensa_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == '.':
             print('Has atacado la coordenada', self.coordenada_ataque[0] , self.coordenada_ataque[1])
             print('Agua')
@@ -432,9 +440,10 @@ class tablero_ataque():
             self.mapa_ataque_j.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = 'X'
             self.mapa_defensa_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] = 'X'
             
-            
+         #En cada disparo realizado se muestra el tablero de ataque del jugador   
         print('Tablero jugador','\n',self.mapa_ataque_j,'\n')
-       
+
+    # Comprobación de dónde cae el disparo de la máquina. Comprueba el disparo en el mapa de defensa y muestra el disparo en el mapa de ataque. 
     def comprobar_ataque_m(self):
         while True:
             if self.mapa_ataque_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == '~' or self.mapa_ataque_m.loc[self.coordenada_ataque[0],self.coordenada_ataque[1]] == 'X':
@@ -453,11 +462,11 @@ class tablero_ataque():
                 
                 break
             
-            
+        #En cada disparo realizado se muestra el tablero de ataque del jugador    
         print('Tablero máquina','\n',self.mapa_ataque_m,'\n')
 
     def ataque_aereo_m(self):
-        #metodo que genera un ataque conjunto a toda una fila o a toda una columna, simunaldo el paso de un escuadrón de bombarderos
+        #metodo que genera un ataque conjunto a toda una fila o a toda una columna, simunaldo el paso de un escuadrón de bombarderos, coordenadas elegidas por la máquina aleatorias 
         plano = ['latitud' , 'longitud']
         ataque_aereo = random.choice(plano)
         if ataque_aereo == 'latitud':
@@ -491,6 +500,7 @@ class tablero_ataque():
                     self.mapa_ataque_m.loc[ataque_aereo_horizontal , casilla_vertical] = '~'
                     print("Agua en coordenadas " , ataque_aereo_horizontal , casilla_vertical)
 
+    #metodo que genera un ataque conjunto a toda una fila o a toda una columna, simunaldo el paso de un escuadrón de bombarderos, coredenadas elegidas por el jugador
     def ataque_aereo_j(self):
         while True:
             ataque_aereo = input('Elija la dirección del ataque aéreo (fila , columna o "pasar"): ')
@@ -538,7 +548,7 @@ class tablero_ataque():
                     print("Valor de coordenada horizontal no válida.")
 
     def ataque_orbital(self):
-        #solo lo puede ejecutar la máquina
+        #solo lo puede ejecutar la máquina, ataque del nivel 3. La máquina ataca una posición, y todas las de su alrededor en un solo disparo.
         coord = [1, 2 , 3 , 4 , 5, 6, 7, 8]
         x = random.choice(coord)
         y = random.choice(coord)
@@ -580,6 +590,7 @@ jugador.colocar_barco_j()
 
 def disparo_jugador():
     while True:
+        # Bucle para comprobación del disparo del jugador. En caso de acertar,te vuelve a tocar. 
         jugador.coordenada_ataque = []
         jugador.ataque_jugador()
         print(jugador.coordenada_ataque)
@@ -595,6 +606,7 @@ def disparo_jugador():
 
 def disparo_maquina():
     print("Turno de la maquina out")
+    # Bucle para comprobación del disparo de la máquina. En caso de acertar,te vuelve a tocar. 
     while True:
         maquina.coordenada_ataque = []
         maquina.ataque_maquina()
@@ -633,16 +645,18 @@ def ataque_aereo_jugador():
         jugador.contador_ataques_aereos_jugador -= 1
     else:
         print('Al jugador no le quedan ataques aereos')
-
+# Ataque orbital. Se le avisa al jugador del próximo ataque. El jugador tiene opción a defenserse.
 def ataque_orbital():
     print("La flota enemiga está preparando un ataque satelital.")
     maquina.coordenadas_ataque_orbital = []
     ejecucion = random.choice(list(range(0,6)))
+    # Hay 7 posibilidades, la máquina elige aleatoriamente una. Si es 4 o mayor, realiza el ataque. Si es 3, el jugador tiene posibilidad de defenderse. Si es inferior a 3, no realiza el ataque.
     if ejecucion > 3:
         maquina.ataque_orbital()
         print("La flota enemiga va a lanzar un ataque orbital sobre las coordenadas %s, ¡PREPARATE PARA EL IMPACTO!" % maquina.coordenadas_ataque_orbital)
     elif ejecucion == 3:
         defensa = random.choice(list(range(0,5)))
+        #Bucle para opción a defenderse del artaque orbital.
         while True:
             oportunidad = input("Elije un numero entre 0 y 5 (incluidos): ")
             try:
@@ -661,30 +675,3 @@ def ataque_orbital():
                 print("Carácter introducido no válido, solo se permiten caracteres numéricos.")
     else:
         print("La flota enemiga no ha conseguido lanzar el ataque orbital.")
-
-
-
-
-
-
-
-# juego
-
-# Juego simple (nivel 1 / primera guerra mundial) //  flotas sin ataques especiales.
-while (jugador.vida_jugador > 0) or (maquina.vida_maquina > 0):
-    #turno del jugador (primero compueba si ataque_aereo y luego procede con su ataque normal)
-    #ataque_aereo_jugador()
-    disparo_jugador()
-    print("Vidas máquina: " , maquina.vida_maquina)
-    #turno de la maquina (primero compueba si ataque_aereo y luego procede con su ataque normal)
-    ataque_aereo_maquina()
-    #ataque_orbital()
-    disparo_maquina()
-    print("Vidas jugador: " , jugador.vida_jugador)
-    
-
-#Nivel 2 / Segunda guerra mundial // Incluye ataques aereos
-
-
-#Nivel 3 / Tercera guerra mundial // Incluye ataques aereos y orbitales
-
