@@ -653,8 +653,10 @@ def reset():
         jugador.defensa_jugador = jugador.defensa_jugador.reset()
         maquina.ataque_maquina = maquina.ataque_maquina.reset()
         maquina.defensa_maquina = maquina.defensa_maquina.reset()
-        maquina.contador_ataques_aereos_maquina = maquina.contador_ataques_aereos_maquina.reset()
-        jugador.contador_ataques_aereos_jugador = jugador.contador_ataques_aereos_jugador.reset()
+        maquina.contador_ataques_aereos_maquina = 2
+        jugador.contador_ataques_aereos_jugador = 2
+        jugador.vida_jugador = 20
+        maquina.vida_maquina = 20
 
 def colocar_barcos()
     maquina.colocar_barco_m()
