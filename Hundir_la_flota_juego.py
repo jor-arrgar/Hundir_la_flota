@@ -139,7 +139,7 @@ while True:
                         else:
                             print('Comando no válido.')
                 else:
-                    print("¡ATENCIÓN! ¡LA FLOTA ENEMIGA HA TOMADO EL CONTROL DE ARMAS ORBITALES! \n¡Date prisa en derrotarla o estarás acabado en un abrir y cerrar de ojos!")
+                    print("¡LA FLOTA ENEMIGA TIENE EL CONTROL DE ARMAS ORBITALES!")
                     cf.ataque_aereo_jugador()
                     cf.disparo_jugador()
                     print("Vidas de la máquina: " , cf.maquina.vida_maquina)
@@ -158,7 +158,7 @@ while True:
                         elif mostrar_mapa == '':
                             break
                         else:
-                            print('Comando no válido.')3
+                            print('Comando no válido.')
             else:
                 break
         if cf.jugador.vida_jugador == 0:
