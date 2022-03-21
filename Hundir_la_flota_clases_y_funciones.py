@@ -222,23 +222,6 @@ class Tablero():
                     print("Introducir solo una coordenada del plano.")
             print(self.mapa_defensa_j)
 
- 
-                                
-                        else:
-                            for i in range(fila, fila + barco_len):
-                                if barco_len == 1:
-                                    self.mapa_defensa_j[i][columna] = 'F'
-                                   
-                                elif barco_len == 2:
-                                    self.mapa_defensa_j[i][columna] = 'D'
-                                 
-                                elif barco_len == 3:
-                                    self.mapa_defensa_j[i][columna] = 'A'
-                                   
-                                elif barco_len == 4:
-                                    self.mapa_defensa_j[i][columna] = 'P'
-                                  
-                        break
 
     def colocar_barco_m(self):
         '''Método aleatorio para posicionar los barcos de la máquina. Permite colocar 1 portaviones, 2 acorazados, 3 destructories y 4 fragatas'''
@@ -658,6 +641,6 @@ def reset():
         jugador.vida_jugador = 20
         maquina.vida_maquina = 20
 
-def colocar_barcos()
+def colocar_barcos():
     maquina.colocar_barco_m()
     jugador.colocar_barco_j()
