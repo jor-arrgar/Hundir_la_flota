@@ -1,5 +1,6 @@
 # Hundir_la_flota
-Proyecto realizado para demostrar las habilidades de programación en lenguaje python y el trabajo en equipo. 
+Proyecto realizado para demostrar las habilidades de programación en lenguaje python y el trabajo en equipo. El juego se ejecuta
+sobre el propio script 'main', visualizando los mapas e introduciendo las instrucciones en la propia terminal del IDE.
 
 
 Juego 'Hundir la flota' con varios niveles de dificultad:
@@ -11,6 +12,7 @@ Juego 'Hundir la flota' con varios niveles de dificultad:
   capaces de barrer secciones enteras del tablero del jugador. Es una carrera contra el tiempo.
 
 
-Presentado durante el Bootcamp en Data Science en la Academia The Bridge (Madrid).
+Presentado durante el Bootcamp en Data Science en la Academia The Bridge (Madrid) por Jorge Arranz, Jon Benito y David Guix.
+
 
 
