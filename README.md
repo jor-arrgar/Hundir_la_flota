@@ -13,3 +13,8 @@ Juego 'Hundir la flota' con varios niveles de dificultad:
 
 
 Presentado durante el Bootcamp en Data Science en la Academia The Bridge (Madrid) por Jorge Arranz, Jon Benito y David Guix.
+
+COMMITS
+Jorge: Colocar barcos manuales y creacion de la narrativa y los modos de juego
+Jon: Disparos
+David: Colocar barcos de forma aleatoria
